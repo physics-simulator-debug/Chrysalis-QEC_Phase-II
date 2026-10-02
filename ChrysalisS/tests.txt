@@ -1,0 +1,170 @@
+========In this file you will find every single detaile about trainig the Model D3========
+#PART 1#
+
+--------------------------------------------------
+| [How To Understand the Model by its name]      |
+|                                                |
+| Name : Chrysalis_S_dx_X_XX                     |
+|                                                |
+|      Chrysalis : The model sign                |
+|                                                |
+|      _S_       : Surface Code                  |
+|                                                |         
+|      _dx_      :  The distant                  |
+|                                                |
+|      _X_XX     : The noise rate that           |
+|                  the Model hade been tarining  |
+|                  on as _X_ = 0. and XX the     |
+|                  numbers after the dot         |
+--------------------------------------------------                
+
+[FIRST TRY]
+
+__> Traing in shock noice rate ENV and see how the Model will react 
+    start by use noise rate = 5% and Timesteps = 100 000 and 
+    lerning_rate = 0.0003
+    The totale Time of the trainig was = 3425 s
+    Since the model trained on noise rate 5%, then the modle
+    must know how to act in lower noice rate like 1% and 0.5%
+    lets test it
+
+    Model Name : Chrysalis_S_d3_0_05_Shock
+
+    0.5% |> Mean Accuracy (MAE) --->  92.0%                | Standard Deviation (STD) ---->  +-5.416025603090638
+    1%   |> Mean Accuracy (MAE) --->  85.66666666666666%   | Standard Deviation (STD) ---->  +-5.587684871413403
+    5%   |> Mean Accuracy (MAE) --->  64.66666666666666%  | Standard Deviation (STD) ---->  +-9.568466729604882
+
+[RESULT OF THE FIRST TRY]
+
+As we see from The First Try the modle in the shock trainig
+can not learn easly even he give good MAE in lower noice 
+rate but still not the best train way you can use with 
+Surface Code QEC. BUT, we have two ideas:
+
+                                   1- Try to retrain the same model again on the same
+                                      nice rate so we can know if the result could be 
+                                      more Accurace.
+
+                                   2- Try to retrain the same model but start fro low 
+                                      noise rate and go step by step till reach to 5% 
+
+                                   3- Try to make a new modle by tain it step by step 
+                                      to see if we can reach higher MAE in 5% or not.
+
+Lets start with the first idea
+
+[SECOND TRY]
+
+__> retrain the exest model 'Chrysalis_S_d3_0_05_Shock' again and analise his behavior
+    agin go with 5% noise rate with 100 000 Timesteps and the same lerning_rate = 0.0003
+    The totale time for tarning was = 4560 s and it takes than the ast model 
+    lets retest it again and see
+
+    Model Name : Chrysalis_S_d3_0_05_Shock2
+
+    0.5% |> Mean Accuracy (MAE) --->  93.0%               | Standard Deviation (STD) ---->   +-4.068851871911235
+    1%   |> Mean Accuracy (MAE) --->  87.66666666666667%   | Standard Deviation (STD) ---->  +-3.6666666666666643
+    5%   |> Mean Accuracy (MAE) --->  57.666666666666664%  | Standard Deviation (STD) ---->  +-10.857664983268219
+
+
+[RESULT OF THE SECOND TRY]
+
+As we see the model is drop more even after retrain again in 100 000 more steps 
+but we need to make sure the problem is mnot in the learning_rate
+we used lerning_rate = 0.0003, but we going to forget about we we done 
+and retrain the first model 100 000 steps again but in learning_rate = 0.0001
+
+
+[THIRD TRY]
+__> retrain the exest model 'Chrysalis_S_d3_0_05_Shock' again and analise his behavior
+    agin go with 5% noise rate with 100 000 Timesteps and the same lerning_rate = 0.0001
+    The totale time for tarning was = 4375 s 
+    lets retest it again and see
+
+    Model Name : Chrysalis_S_d3_0_05_Shock3
+
+    0.5% |> Mean Accuracy (MAE) --->  90.33333333333334%   | Standard Deviation (STD) ---->   +-4.068851871911231
+    1%   |> Mean Accuracy (MAE) --->  86.33333333333334%   | Standard Deviation (STD) ---->  +-6.2271805640897995
+    5%   |> Mean Accuracy (MAE) --->  54.666666666666664%  | Standard Deviation (STD) ---->  +-8.055363982396381
+
+
+[RESULT OF THE THIRD TRY]
+
+As wee see here even when we change the learning_rate the problem still in the noise 5%
+so we will going to start again from Zero with new model start traning from 0.5% to 5%
+to see if we can reach a higher Accuracy than the other model
+
+
+[FOURTH TRY]
+__> Start train the model from Zero in the noise rate 0.5% 
+    Use timesteps = 50 000 and learning_rate = 0.0003
+    The total time for the trainig = 3575s
+
+    Model Name : Chrysalis_S_d3_0_005
+
+    0.5% |> Mean Accuracy (MAE) --->  92.33333333333333%   | Standard Deviation (STD) ---->  +-4.2295258468165065
+
+    Now we will take this modle and retrain in higher noise rate 
+    lets go to 1% noise rate Use timesteps = 100 000
+    and learning_rate = 0.0003
+    The total time for the trainig = 3955s
+
+    Model Name : Chrysalis_S_d3_0_01
+
+    0.5% |> Mean Accuracy (MAE) --->  93.33333333333333%   | Standard Deviation (STD) ---->  +-3.3499585403736316
+    1.0% |> Mean Accuracy (MAE) --->  90.66666666666667%   | Standard Deviation (STD) ---->  +-5.120763831912404
+
+    Next go to the higher noise rate  2%
+    Use timesteps = 100 000 and learning_rate = 0.0003
+    The total time for the traing = 3398s
+
+    Model Name : Chrysalis_S_d3_0_02
+
+    0.5% |> Mean Accuracy (MAE) --->  94.99999999999999%   | Standard Deviation (STD) ---->  +-3.0731814857642976
+    1.0% |> Mean Accuracy (MAE) --->  91.33333333333333%   | Standard Deviation (STD) ---->  +-6.3595946761129705
+    2.0% |> Mean Accuracy (MAE) --->  76.99999999999999%   | Standard Deviation (STD) ---->  +-7.118052168020877
+
+    Next go to the higher noise rate  3% we will start to make the timesteps higher
+    Use timesteps = 150 000 and learning_rate = 0.0003
+    The total time for the traing = 4259s
+    
+    Model Name : Chrysalis_S_d3_0_03
+
+    0.5% |> Mean Accuracy (MAE) --->  95.66666666666666%   | Standard Deviation (STD) ---->  +-3.666666666666667
+    1.0% |> Mean Accuracy (MAE) --->  91.33333333333334%   | Standard Deviation (STD) ---->  +-6.5319726474218065
+    2.0% |> Mean Accuracy (MAE) --->  78.99999999999999%   | Standard Deviation (STD) ---->  +-5.783117190965828 
+    3.0% |> Mean Accuracy (MAE) --->  73.66666666666666%   | Standard Deviation (STD) ---->  +-7.21880260923591
+
+    Next go to the higher noise rate  4% we will start to make the timesteps higher
+    Use timesteps = 150 000 and learning_rate = 0.0001 to not losse the model learned ponts
+    The total time for the traing = 3914s
+
+    Model Name : Chrysalis_S_d3_0_04
+
+    0.5% |> Mean Accuracy (MAE) --->  96.66666666666667%   | Standard Deviation (STD) ---->  +-3.7118429085533484
+    1.0% |> Mean Accuracy (MAE) --->  92.66666666666666%   | Standard Deviation (STD) ---->  +-3.8873012632302006
+    2.0% |> Mean Accuracy (MAE) --->  82.66666666666666%   | Standard Deviation (STD) ---->  +-4.666666666666669
+    3.0% |> Mean Accuracy (MAE) --->  71.33333333333334%   | Standard Deviation (STD) ---->  +-4.760952285695236
+    4.0% |> Mean Accuracy (MAE) --->  70.0%                | Standard Deviation (STD) ---->  +-7.859884081701062
+
+    Next go to the higher noise rate  5% we will start to make the timesteps higher
+    Use timesteps = 200 000 and learning_rate = 0.0001 to not losse the model learned ponts
+    The total time for the traing = 8393s
+
+    Model Name : Model Name : Chrysalis_S_d3_0_05
+
+    0.5% |> Mean Accuracy (MAE) --->  96.66666666666667%   | Standard Deviation (STD) ---->  +-3.7118429085533484
+    1.0% |> Mean Accuracy (MAE) --->  90.66666666666666%   | Standard Deviation (STD) ---->  +-2.4944382578492905
+    2.0% |> Mean Accuracy (MAE) --->  80.33333333333334%   | Standard Deviation (STD) ---->  +-7.666666666666668
+    3.0% |> Mean Accuracy (MAE) --->  72.66666666666666%   | Standard Deviation (STD) ---->  +-5.3333333333333375
+    4.0% |> Mean Accuracy (MAE) --->  73.33333333333333%   | Standard Deviation (STD) ---->  +-8.717797887081346
+    5.0% |> Mean Accuracy (MAE) --->  66.33333333333334%   | Standard Deviation (STD) ---->  +-8.491826135238
+
+
+[RESULT OF THE FOURTH TRY]
+As we say after traina new model from low noise rate to higher noise rate it 
+satey stable anddo not break easly
+
+
+Now we tried the First and the third idea of fixing the the problem now lets try 
+the seconde idea in another file it  named "test2.txt"

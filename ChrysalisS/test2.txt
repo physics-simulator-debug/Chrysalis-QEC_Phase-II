@@ -1,0 +1,58 @@
+========In this file you will find every single detaile about trainig the Model D3========
+#PART 2#
+
+--------------------------------------------------
+| [How To Understand the Model by its name]      |
+|                                                |
+| Name : Chrysalis_S_dx_X_XX                     |
+|                                                |
+|      Chrysalis : The model sign                |
+|                                                |
+|      _S_       : Surface Code                  |
+|                                                |         
+|      _dx_      :  The distant                  |
+|                                                |
+|      _X_XX     : The noise rate that           |
+|                  the Model hade been tarining  |
+|                  on as _X_ = 0. and XX the     |
+|                  numbers after the dot         |
+-------------------------------------------------- 
+
+Now will start to cure the model Chrysalis_S_d3_0_05_Shock by re train it 
+from low noise rate step by step untile we reach to noise rate 5% then we will 
+compare the old modle with the new one.
+
+First we have to remember the old modle behavior
+
+Model Name : Chrysalis_S_d3_0_05_Shock
+
+____> 0.5% |> Mean Accuracy (MAE) --->  92.0%                | Standard Deviation (STD) ---->  +-5.416025603090638
+      1%   |> Mean Accuracy (MAE) --->  85.66666666666666%   | Standard Deviation (STD) ---->  +-5.587684871413403
+      5%   |> Mean Accuracy (MAE) --->  64.66666666666666%   | Standard Deviation (STD) ---->  +-9.568466729604882 
+
+Now we will start to retarin the old model "Chrysalis_S_d3_0_05_Shock" in noise rate 0.5%
+start with timesteps = 50 000 and learning_rate = 0.0003
+
+Model Name : Chrysalis_S_d3_0_005_C  # as C = cure
+  |
+  |_> 0.5% |> Mean Accuracy (MAE) --->  93.66666666666666%   | Standard Deviation (STD) ---->  +-4.068851871911235
+
+
+Now we will contenue to retarin the new model in noise rate 1%
+start with timesteps = 100 000 and learning_rate = 0.0003
+
+Model Name : Chrysalis_S_d3_0_01_C
+   |
+   |_> 0.5%  |> Mean Accuracy (MAE) --->  93.33333333333334%   | Standard Deviation (STD) ---->  +-3.651483716701107
+   |_> 1.0%  |> Mean Accuracy (MAE) --->  89.66666666666666%   | Standard Deviation (STD) ---->  +-4.068851871911228
+
+
+Now we will contenue to retarin the new model in noise rate 2%
+start with timesteps = 100 000 and learning_rate = 0.0003
+
+Model Nmae : Chrysalis_S_d3_0_02_C
+    |
+    |_> 0.5%  |> Mean Accuracy (MAE) --->  95.33333333333334%   | Standard Deviation (STD) ---->  +-2.6666666666666687
+    |_> 1.0%  |> 
+
+
